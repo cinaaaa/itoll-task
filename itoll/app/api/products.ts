@@ -212,32 +212,6 @@ export const products = [
       count: 340,
     },
   },
-  {
-    id: 17,
-    name: "Rain Jacket Women",
-    price: 39.99,
-    description:
-      "Lightweight perfet for trip or casual wear---Long sleeve with hooded, Button and zipper front closure raincoat, fully stripes",
-    category: "women's clothing",
-    imageUrl: "https://fakestoreapi.com/img/71HblAHs5xL._AC_UY879_-2.jpg",
-    rating: {
-      rate: 3.8,
-      count: 679,
-    },
-  },
-  {
-    id: 18,
-    name: "MBJ Women's Solid",
-    price: 9.85,
-    description:
-      "95% RAYON 5% SPANDEX, Made in USA or Imported, Do Not Bleach, Lightweight fabric with great stretch for comfort, Ribbed on sleeves and neckline / Double stitching on bottom hem",
-    category: "women's clothing",
-    imageUrl: "https://fakestoreapi.com/img/71z3kpMAYsL._AC_UY879_.jpg",
-    rating: {
-      rate: 4.7,
-      count: 130,
-    },
-  },
 ];
 
 // Fetch all products
@@ -246,3 +220,19 @@ export const getAllProducts = () => Promise.resolve(products);
 // Fetch product by ID
 export const getProductById = (id: number) =>
   Promise.resolve(products.find((product) => product.id === id));
+
+// Function to search products
+export const searchProducts = (query: string) => {
+  if (!query) return "";
+
+  const lowerCaseQuery = query.toLowerCase();
+
+  const filteredProducts = products.filter(
+    (product) =>
+      product.name.toLowerCase().includes(lowerCaseQuery) ||
+      product.description.toLowerCase().includes(lowerCaseQuery) ||
+      product.category.toLowerCase().includes(lowerCaseQuery),
+  );
+
+  return Promise.resolve(filteredProducts);
+};

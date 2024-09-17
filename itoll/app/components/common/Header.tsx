@@ -1,10 +1,21 @@
 "use client";
-import Search from "../Product/Search";
+import { useRouter } from "next/navigation";
 
-export default function Header() {
+const Header = ({ children }: { children?: React.ReactNode }) => {
+  const router = useRouter();
+
+  const handleBack = () => {
+    router.back(); // Navigate back in the browser history
+  };
+
   return (
-    <div className="w-2/12 h-[60px] my-20 flex flex-row justify-between px-5 items-center py-5 rounded-full border shadow-xl mx-auto">
-      <Search onSearch={() => {}} />
-    </div>
+    <header className="w-full h-[80px] border-b-2 border-black flex flex-row justify-between items-center px-4 mb-10">
+      <button onClick={handleBack} className="text-gray-700">
+        <p className="text-lg">Go back</p>
+      </button>
+      {children || ""}
+    </header>
   );
-}
+};
+
+export default Header;

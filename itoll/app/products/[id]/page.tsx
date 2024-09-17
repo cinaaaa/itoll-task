@@ -1,4 +1,5 @@
 import { getProductById } from "@/app/api/products";
+import Header from "@/app/components/common/Header";
 import Image from "next/image";
 
 export default async function ProductDetailPage({
@@ -13,13 +14,13 @@ export default async function ProductDetailPage({
   }
 
   return (
-    <div className="flex flex-row justify-between w-5/6 mx-auto items-center">
+    <div className="flex flex-row justify-between w-5/6 mx-auto items-center gap-x-20 h-[100vh]">
       <Image
         src={product.imageUrl}
         alt={product.name}
         width={150}
         height={150}
-        className="object-contain w-1/2 h-[700px] p-4"
+        className="object-contain w-2/5 h-1/2 p-4"
       />
       <div>
         <h1 className="text-black text-6xl">{product.name}</h1>

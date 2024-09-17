@@ -1,7 +1,13 @@
 import Link from "next/link";
 import Image from "next/image";
 
-export default function ProductItem({ product }: { product: any }) {
+export default function ProductItem({
+  product,
+  index,
+}: {
+  product: any;
+  index: number;
+}) {
   return (
     <Link
       className="w-3/12 min-w-[300px] flex flex-col h-[430px] border-2 hover:border-black justify-between"
@@ -14,6 +20,7 @@ export default function ProductItem({ product }: { product: any }) {
         alt={product.name}
         width={150}
         height={150}
+        loading={index > 8 ? "lazy" : "eager"}
         className="object-contain w-full h-[200px] p-4"
       />
       <section className="flex flex-col h-[200px] justify-between p-4">
