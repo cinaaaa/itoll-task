@@ -45,7 +45,7 @@ const Search: React.FC = () => {
       />
 
       {query && (
-        <ul className="absolute z-10 right-10 bg-white border border-gray-300 w-[426px] top-26 rounded-lg max-h-60 overflow-y-auto shadow-lg">
+        <ul className="absolute z-10 right-10 bg-white border border-gray-300 w-[426px] top-26 rounded-lg max-h-60 overflow-y-auto">
           {filteredProducts.length > 0 ? (
             filteredProducts.map((product) => (
               <Link key={product.id} href={`/products/${product.id}`}>
