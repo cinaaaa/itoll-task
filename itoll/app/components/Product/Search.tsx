@@ -1,11 +1,7 @@
 import { useState, useEffect } from "react";
 
-export default function Search({
-  onSearch,
-}: {
-  onSearch: (query: string) => void;
-}) {
-  const [searchTerm, setSearchTerm] = useState("");
+export default function Search({ onSearch }: { onSearch: () => void }) {
+  const [searchTerm, setSearchTerm] = useState<string>("");
 
   useEffect(() => {
     const delayDebounceFn = setTimeout(() => {
@@ -21,6 +17,7 @@ export default function Search({
       value={searchTerm}
       onChange={(e) => setSearchTerm(e.target.value)}
       placeholder="Search products..."
+      className="bg-gray-50 border border-gray-300 text-md text-black rounded-full block w-full p-2.5 focus:outline-gray-400"
     />
   );
 }
