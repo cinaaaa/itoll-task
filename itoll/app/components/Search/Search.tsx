@@ -4,20 +4,18 @@ import Image from "next/image";
 import Link from "next/link";
 import useDebounce from "@/app/hooks/useDebounce"; // Adjust the import path based on your project structure
 import { searchProducts } from "@/app/api/products";
-
-interface Product {
-  id: number;
-  name: string;
-  price: number;
-  description: string;
-  category: string;
-  imageUrl: string;
-  rating: { rate: number; count: number };
-}
+import { ProductArray } from "@/app/types/product";
+import { Text } from "@/app/components/common";
 
 const Search: React.FC = () => {
-  const [query, setQuery] = useState("");
-  const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
+  const [query, setQuery] = useState<string>("");
+  const [modalOpen, setModalOpen] = useState<boolean>(false);
+
+  const [filteredProducts, setFilteredProducts] = useState<
+    ProductArray | undefined
+  >([]);
+
+  const toggleSearchModal = (open: boolean) => setModalOpen(open);
   const debouncedQuery = useDebounce(query, 300);
 
   useEffect(() => {
@@ -26,6 +24,7 @@ const Search: React.FC = () => {
       if (debouncedQuery.trim()) {
         const products = await searchProducts(debouncedQuery);
         setFilteredProducts(products);
+        toggleSearchModal(true);
       } else {
         setFilteredProducts([]);
       }
@@ -44,12 +43,15 @@ const Search: React.FC = () => {
         className="border border-black text-md text-black block w-full p-2.5 focus:outline-blue-700"
       />
 
-      {query && (
-        <ul className="absolute z-10 right-10 bg-white border border-gray-300 w-[426px] top-26 rounded-lg max-h-60 overflow-y-auto">
+      {query && filteredProducts && !!modalOpen && (
+        <ul className="absolute z-10 bg-white border border-gray-300 w-[360px] top-26 rounded-lg max-h-60 overflow-y-auto p-2">
           {filteredProducts.length > 0 ? (
             filteredProducts.map((product) => (
               <Link key={product.id} href={`/products/${product.id}`}>
-                <li className="p-2 cursor-pointer hover:bg-gray-100 text-black flex flex-row items-center">
+                <li
+                  className="p-2 cursor-pointer hover:bg-gray-100 text-black flex flex-row items-center"
+                  onClick={() => toggleSearchModal(false)}
+                >
                   <Image
                     src={product.imageUrl}
                     alt={product.name}
@@ -58,14 +60,14 @@ const Search: React.FC = () => {
                     className="object-contain w-[100px] h-[100px] p-4"
                   />
                   <div>
-                    <h3 className="text-lg">{product.name}</h3>
-                    <p className="font-bold">{product.price}</p>
+                    <Text size="lg">{product.name}</Text>
+                    <Text>{product.price}</Text>
                   </div>
                 </li>
               </Link>
             ))
           ) : (
-            <li className="p-2 text-center text-gray-500">No results found</li>
+            <Text size="xl">No results found</Text>
           )}
         </ul>
       )}

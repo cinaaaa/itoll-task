@@ -1,8 +1,6 @@
-import ProductList from "@/app/components/Product/ProductList";
+import { ProductList } from "@/app/components/Product";
 import { getAllProducts } from "@/app/api/products";
 import { unstable_cache } from "next/cache";
-import Search from "./components/Product/Search";
-import Header from "@/app/components/common/Header";
 
 const getCachedPosts = unstable_cache(
   async () => {

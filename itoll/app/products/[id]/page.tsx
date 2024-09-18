@@ -1,16 +1,17 @@
-import { getProductById } from "@/app/api/products";
-import Header from "@/app/components/common/Header";
 import Image from "next/image";
+import NotFound from "@/app/not-found";
+import { Text } from "@/app/components/common";
+import { getProductById } from "@/app/api/products";
 
-export default async function ProductDetailPage({
-  params,
-}: {
+interface ProductsDetailPage {
   params: { id: string };
-}) {
-  const product = await getProductById(Number(params.id));
+}
+
+const ProductDetailPage: React.FC<ProductsDetailPage> = ({ params }) => {
+  const product = getProductById(Number(params.id));
 
   if (!product) {
-    return <h1>Product not found!</h1>;
+    return <NotFound />;
   }
 
   return (
@@ -18,17 +19,19 @@ export default async function ProductDetailPage({
       <Image
         src={product.imageUrl}
         alt={product.name}
-        width={150}
-        height={150}
+        width={200}
+        height={200}
         className="object-contain w-2/5 h-1/2 p-4 min-w-[200px]"
       />
       <div>
-        <h1 className="text-black text-6xl">{product.name}</h1>
-        <p className="text-black max-w-4/5 mt-5">{product.description}</p>
-        <p className="text-black font-bold text-2xl mt-5">
-          Price: {product.price}
-        </p>
+        <Text size="6xl">{product.name}</Text>
+        <div className="text-black max-w-4/5 my-5">
+          <Text>{product.description}</Text>
+        </div>
+        <Text size="2xl">Price: {product.price}</Text>
       </div>
     </div>
   );
-}
+};
+
+export default ProductDetailPage;

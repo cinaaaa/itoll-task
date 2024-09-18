@@ -1,7 +1,12 @@
 "use client";
 import { useRouter } from "next/navigation";
+import { Text } from "@/app/components/common";
 
-const Header = ({ children }: { children?: React.ReactNode }) => {
+interface HeaderProps {
+  children?: React.ReactNode;
+}
+
+const Header: React.FC<HeaderProps> = ({ children }) => {
   const router = useRouter();
 
   const handleBack = () => {
@@ -9,11 +14,13 @@ const Header = ({ children }: { children?: React.ReactNode }) => {
   };
 
   return (
-    <header className="w-full h-[80px] border-b-2 border-black flex flex-row justify-between items-center px-4 mb-10">
-      <button onClick={handleBack} className="text-gray-700">
-        <p className="text-lg">Back</p>
-      </button>
-      {children || ""}
+    <header className="w-full h-[80px] border-b-2 border-black mb-10">
+      <div className="w-5/6 mx-auto flex flex-row justify-between items-center px-4">
+        <button onClick={handleBack}>
+          <Text size="md">Back</Text>
+        </button>
+        {children}
+      </div>
     </header>
   );
 };
