@@ -28,11 +28,11 @@ const ProductItem: React.FC<ProductItemProps> = ({ product, index }) => {
         className="object-contain w-full h-[200px] p-4"
       />
       <section className="flex flex-col h-[200px] justify-between p-4">
-        <Text size="2xl">{product.name}</Text>
+        <Text size="4xl">{product.name}</Text>
         <Text size="sm">{product.description}</Text>
-        {/* <div className="justify-end flex items-end">
+        <div className="justify-end flex items-end">
           <Text size="md">{product.price + "$"}</Text>
-        </div> */}
+        </div>
       </section>
     </Link>
   );

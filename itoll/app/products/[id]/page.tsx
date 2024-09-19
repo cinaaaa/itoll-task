@@ -24,7 +24,7 @@ const ProductDetailPage: React.FC<ProductsDetailPage> = ({ params }) => {
         className="object-contain w-2/5 h-1/2 p-4 min-w-[200px]"
       />
       <div>
-        <Text size="6xl">{product.name}</Text>
+        <p className="text-6xl text-black">{product.name}</p>
         <div className="text-black max-w-4/5 my-5">
           <Text>{product.description}</Text>
         </div>
